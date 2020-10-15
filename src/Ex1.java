@@ -1,13 +1,12 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Ex1 {
-    public static void main(String[] args) {
+    public static <Sumsa> void main(String[] args) {
         /*
         * Programación funcional
         * */
@@ -109,10 +108,69 @@ public class Ex1 {
         * Arrays.stream(ar).map((i) -> (double) i/2).forEach((i) -> System.out.println(i)); --> Incluimos el function dentro del map
         *
         * */
+
         Half h = new Half();
         Function<Integer, Double> hl = (i) -> (double) i/2;
 
-        Arrays.stream(ar).map(hl).forEach((i) -> System.out.println(i));
+        //Arrays.stream(ar).map(hl).forEach((i) -> System.out.println(i));
+
+        /*
+        * MAX / MIN
+        *
+        * Arrays.stream(ar).min(c).get(); --> Sacamos el minimo
+        * Arrays.stream(ar).min(Integer::compare).get(); -> Igual pero simplificado
+        *
+        *
+        * */
+
+        Comparator c = new Comparator();
+        int max = Arrays.stream(ar).max(c).get();
+        int min = Arrays.stream(ar).min(c).get();
+        int comMin = Arrays.stream(ar).min(Integer::compare).get();
+        int comMax = Arrays.stream(ar).max(Integer::compare).get();
+
+        //System.out.println("max: " + max + ", min: " + min);
+
+
+        /*
+        * OPTIONAL
+        *
+        * Podemos saber si un elemento es nulo
+        *
+        * isPresent()           --> Devuelve true o false si tiene valor o no
+        * opt.ifPresent((st)    --> System.out.println(st)); --> Si tiene valor lo pintará ejecutando un consumer si el valor no es null
+        * opt.orElse("Toni");   --> Si es null imprimirá este otro atributo, pero necesita que tenga un valor
+        *
+        * */
+
+        String s;
+        Optional<String> opt;
+
+        s = "Pep";
+        opt = Optional.ofNullable(s);
+
+        opt.ifPresent((st) -> System.out.println(st));
+
+        String ss = opt.orElse("Toni");
+        //System.out.println(ss);
+
+
+        /*
+        * REDUCE
+        *
+        * Nos permite hacer cálculos
+        *
+        * Integer total1 = i1.stream().reduce(su).orElse(0);
+        * Integer total1 = i1.stream().reduce((v, vc) -> vc+v).orElse(0);
+        *
+        * */
+
+        List<Integer> i1 = List.of(1,2,3,4,5,6,7);
+        Suma su = new Suma();
+
+        Integer total1 = i1.stream().reduce(su).orElse(0);
+        //Integer total1 = i1.stream().reduce((v, vc) -> vc+v).orElse(0);
+        System.out.println(total1);
 
     }
 
@@ -146,6 +204,22 @@ public class Ex1 {
         @Override
         public Double apply(Integer integer) {
             return (double) integer/2;
+        }
+    }
+
+    static class Comparator implements java.util.Comparator<Integer> {
+
+        @Override
+        public int compare(Integer x, Integer y) {
+            return Integer.compare(x, y);
+        }
+    }
+
+    static class Suma implements BinaryOperator<Integer>{
+
+        @Override
+        public Integer apply(Integer v, Integer vc) {
+            return vc + v;
         }
     }
 
