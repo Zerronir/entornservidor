@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Ex1 {
-    public static <Sumsa> void main(String[] args) {
+    public static void main(String[] args) {
         /*
         * Programación funcional
         * */
