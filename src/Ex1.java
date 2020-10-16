@@ -4,8 +4,11 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Ex1 {
+    static final int NELEM = 10;
+
     public static void main(String[] args) {
         /*
         * Programación funcional
@@ -170,7 +173,17 @@ public class Ex1 {
 
         Integer total1 = i1.stream().reduce(su).orElse(0);
         //Integer total1 = i1.stream().reduce((v, vc) -> vc+v).orElse(0);
-        System.out.println(total1);
+        //System.out.println(total1);
+
+        // RANDOM
+        /**
+         *
+         * Creamos listas random usando anotaciones lambda
+         *
+         * */
+        List<Double> listaRandom = Stream.generate(() -> Math.random()).limit(NELEM).collect(Collectors.toList());
+        System.out.println(listaRandom);
+
 
     }
 
