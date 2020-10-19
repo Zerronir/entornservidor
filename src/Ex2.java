@@ -1,4 +1,7 @@
-import java.security.cert.CertificateParsingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Ex2 {
     public static void main(String[] args) throws CloneNotSupportedException {
@@ -28,6 +31,13 @@ public class Ex2 {
         System.out.printf("id: %d, name: %s, Address: %s, Salary: %f", re2.getId(), re2.getName(), re2.getAddress(), re2.getSalary());*/
 
 
+        /* DAO
+        PersonaDAO dao = new PersonaDAOImplTest();
+        List<Persona> perList = dao.all();
+        perList.get(0).setId(1000);
+        perList = dao.all();
+        dao.update(new Persona(1, "Bill"));
+        System.out.println(perList);*/
 
 
     }
@@ -107,5 +117,84 @@ class RegistreEmpleat implements Cloneable{
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return new RegistreEmpleat(this.id, this.name, this.address, this.salary);
+    }
+}
+
+// DAO --> Data Access Object
+interface PersonaDAO {
+    List<Persona> all();
+    void update(Persona p);
+    void delete(Persona p);
+    void create(Persona p);
+
+
+
+}
+
+class PersonaDAOImplTest implements PersonaDAO{
+    List<Persona> personaList = new ArrayList<>();
+
+    PersonaDAOImplTest(){
+        personaList.add(new Persona(1, "Bill Gates"));
+        personaList.add(new Persona(2, "James Bond"));
+        personaList.add(new Persona(3, "Marian"));
+        personaList.add(new Persona(4, "Maria Jhones"));
+        personaList.add(new Persona(5, "Anna Smith"));
+    }
+
+    @Override
+    public List<Persona> all() {
+        return this.personaList.stream()
+                .map(p -> new Persona(p.getId(), p.getName()))
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public void update(Persona p) {
+        //all().stream().map(per -> );
+        this.personaList.set(p.getId(), p);
+
+    }
+
+    @Override
+    public void delete(Persona persona) {
+        personaList.removeIf(p -> p.getId() == persona.getId());
+    }
+
+    @Override
+    public void create(Persona p) {
+        this.personaList.add(p);
+    }
+}
+
+class Persona {
+    private int id;
+    private String name;
+
+    Persona(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("id: %d, Name: %s", this.id, this.name);
     }
 }
