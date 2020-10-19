@@ -37,7 +37,8 @@ public class Ex2 {
         perList.get(0).setId(1000);
         perList = dao.all();
         dao.update(new Persona(1, "Bill"));
-        System.out.println(perList);*/
+        System.out.println(perList);
+        */
 
 
     }
