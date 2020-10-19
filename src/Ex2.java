@@ -17,6 +17,14 @@ class Singleton {
 
     private int valor;
 
+    private Singleton(){
+
+    }
+
+    public static Singleton getInstance(){
+        return new Singleton();
+    }
+
     public int getValor() {
         return valor;
     }
