@@ -40,12 +40,28 @@ public class Ex2 {
         System.out.println(perList);
         */
 
+        //FAZADE
+        /*InstrumentMaker im = new InstrumentMaker();
+
+        im.playingDrums();*/
+
+        //VIEWS
+        /*Student tom = new Student();
+        tom.setName("Tom");
+        tom.setCity("Palma");
+
+        StudentView vista = new StudentView();
+        StudentController controller = new StudentController(tom, vista);
+        controller.updateView();*/
+
+        // Construcció d'objectes
+
 
     }
 }
 
 // Clase Singleton
-class Singleton {
+/*class Singleton {
 
     private int valor;
     private static Singleton singleton;
@@ -199,3 +215,98 @@ class Persona {
         return String.format("id: %d, Name: %s", this.id, this.name);
     }
 }
+
+// FACER
+
+class InstrumentMaker {
+    private Violin violin = new Violin();
+    private Drums drums = new Drums();
+    private Guitar guitar = new Guitar();
+
+    void playingViolin(){
+        this.violin.play();
+    }
+
+    void playingDrums(){
+        this.drums.play();
+    }
+
+    void playingGuitar(){
+        this.guitar.play();
+    }
+}
+
+interface Instrument {
+    void play();
+}
+
+class Violin implements Instrument {
+
+    @Override
+    public void play() {
+        System.out.println("Playing violin");
+    }
+}
+
+
+class Drums implements Instrument{
+    @Override
+    public void play() {
+        System.out.println("Playing drums");
+    }
+}
+
+class Guitar implements Instrument {
+    @Override
+    public void play() {
+        System.out.println("Playing guitar");
+    }
+}
+
+class StudentView {
+    void printStudentDetails(String name, String city){
+        System.out.printf("Name: %s, City: %s", name, city);
+    }
+}
+
+class StudentController {
+    private Student model;
+    private StudentView view;
+
+    StudentController(Student model, StudentView view){
+        this.model = model;
+        this.view = view;
+    }
+
+    void updateView(){
+        view.printStudentDetails(model.getName(), model.getCity());
+    }
+
+}
+
+class Student {
+    private String name;
+    private String city;
+
+    Student(String name, String city){
+        this.name = name;
+        this.city = city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+}*/
+
