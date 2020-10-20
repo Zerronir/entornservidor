@@ -39,6 +39,11 @@ public class Ex2 {
         dao.update(new Persona(1, "Bill"));
         System.out.println(perList);*/
 
+        //FAZADE
+        InstrumentMaker im = new InstrumentMaker();
+
+        im.playingDrums();
+
 
     }
 }
@@ -196,5 +201,52 @@ class Persona {
     @Override
     public String toString() {
         return String.format("id: %d, Name: %s", this.id, this.name);
+    }
+}
+
+// FACER
+
+class InstrumentMaker {
+    private Violin violin = new Violin();
+    private Drums drums = new Drums();
+    private Guitar guitar = new Guitar();
+
+    void playingViolin(){
+        this.violin.play();
+    }
+
+    void playingDrums(){
+        this.drums.play();
+    }
+
+    void playingGuitar(){
+        this.guitar.play();
+    }
+}
+
+interface Instrument {
+    void play();
+}
+
+class Violin implements Instrument {
+
+    @Override
+    public void play() {
+        System.out.println("Playing violin");
+    }
+}
+
+
+class Drums implements Instrument{
+    @Override
+    public void play() {
+        System.out.println("Playing drums");
+    }
+}
+
+class Guitar implements Instrument {
+    @Override
+    public void play() {
+        System.out.println("Playing guitar");
     }
 }
