@@ -65,6 +65,22 @@ public class Ex2 {
         fc.dispatchRequest("HOME");
         fc.dispatchRequest("INTERNAL");
 
+        // FILTER O INTERCEPTOR
+        /**
+         *
+         * Filtros para antes de que el FrontController haga la acción
+         * Todo esto se debe hacer antes de pasar al controlador
+         * Generará código de error o excepción o realizar la tarea correctamente
+         *
+         * */
+
+        FilterManager fm = new FilterManager(new Target());
+        fm.setFilter(new AuthenticationFilter());
+        fm.setFilter(new DebugFilter());
+        fm.setFilter(new LogFilter());
+
+        Client client = new Client(fm);
+        client.sendRequest("HOME");
     }
 }
 
@@ -461,7 +477,6 @@ class Dispatcher {
 
 }
 
-
 class FrontController {
     private Dispatcher dispatcher = new Dispatcher();
 
@@ -470,5 +485,90 @@ class FrontController {
         dispatcher.dispatch(request);
     }
 
+
+}
+
+// FILTER // INTERCEPTOR
+interface Filter {
+    void execute(String request);
+}
+
+class AuthenticationFilter implements Filter {
+
+    @Override
+    public void execute(String request) {
+        System.out.println("Authenticating user... " + request);
+    }
+}
+
+class DebugFilter implements Filter {
+
+    @Override
+    public void execute(String request) {
+        System.out.println("Debuggin... " + request);
+    }
+}
+
+class LogFilter implements Filter {
+
+    @Override
+    public void execute(String request) {
+        System.out.println("Loggin: " + request);
+    }
+}
+
+class Target {
+    void run (String request) {
+        System.out.println("Running: " + request);
+    }
+}
+
+class FilterChain {
+    private List<Filter> filterList = new ArrayList<>();
+    private Target target;
+
+    void addFilter(Filter f) {
+        filterList.add(f);
+    }
+
+    // Siempre se aplican a un controlador o a más de uno
+    void setTarget(Target t) {
+        this.target = t;
+    }
+
+    void execute(String request){
+        filterList.forEach(f -> f.execute(request));
+        target.run(request);
+    }
+}
+
+class FilterManager {
+    FilterChain fc;
+
+    FilterManager(Target t){
+        fc = new FilterChain();
+        fc.setTarget(t);
+    }
+
+    void setFilter(Filter f) {
+        fc.addFilter(f);
+    }
+
+    void filterRequest(String request){
+        fc.execute(request);
+    }
+
+}
+
+class Client {
+    FilterManager fm;
+
+    Client(FilterManager fma) {
+        fm = fma;
+    }
+
+    void sendRequest(String req) {
+        fm.filterRequest(req);
+    }
 
 }
