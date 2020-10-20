@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 public class Ex2 {
     public static void main(String[] args) throws CloneNotSupportedException {
-        /* SINGLETON
+        // SINGLETON
 
         Singleton s1 = Singleton.getInstance();
         Singleton s2 = Singleton.getInstance();
@@ -14,10 +14,10 @@ public class Ex2 {
         s2.setValor(7);
 
         System.out.printf("s1: %d s2: %d", s1.getValor(), s2.getValor());
-        */
 
 
-        /* CLONE
+
+        // CLONE
 
         RegistreEmpleat re = new RegistreEmpleat(1, "Pep", "Carrer patato", 20000.00);
         //...
@@ -28,37 +28,37 @@ public class Ex2 {
         re2.setAddress("Calle 1");
         re2.setSalary(45000.00);
 
-        System.out.printf("id: %d, name: %s, Address: %s, Salary: %f", re2.getId(), re2.getName(), re2.getAddress(), re2.getSalary());*/
+        System.out.printf("id: %d, name: %s, Address: %s, Salary: %f", re2.getId(), re2.getName(), re2.getAddress(), re2.getSalary());
 
 
-        /* DAO
+        // DAO
         PersonaDAO dao = new PersonaDAOImplTest();
         List<Persona> perList = dao.all();
         perList.get(0).setId(1000);
         perList = dao.all();
         dao.update(new Persona(1, "Bill"));
         System.out.println(perList);
-        */
+
 
         //FAZADE
-        /*InstrumentMaker im = new InstrumentMaker();
+        InstrumentMaker im = new InstrumentMaker();
 
-        im.playingDrums();*/
+        im.playingDrums();
 
         //VIEWS
-        /*Student tom = new Student();
+        Student tom = new Student("", "");
         tom.setName("Tom");
         tom.setCity("Palma");
 
         StudentView vista = new StudentView();
         StudentController controller = new StudentController(tom, vista);
-        controller.updateView();*/
+        controller.updateView();
 
         // Construcció d'objectes
-        /*MealBuilder mb = new MealBuilder();
+        MealBuilder mb = new MealBuilder();
         Meal forMary = mb.prepareVegMeal();
 
-        System.out.println(forMary.toString());*/
+        System.out.println(forMary.toString());
 
         // FRONT CONTROLLER
         FrontController fc = new FrontController();
