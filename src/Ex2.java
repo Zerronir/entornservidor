@@ -61,6 +61,10 @@ public class Ex2 {
         System.out.println(forMary.toString());*/
 
         // FRONT CONTROLLER
+        FrontController fc = new FrontController();
+        fc.dispatchRequest("HOME");
+        fc.dispatchRequest("INTERNAL");
+
     }
 }
 
