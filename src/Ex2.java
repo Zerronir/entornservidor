@@ -429,4 +429,42 @@ class Coke extends Drink {
 }
 
 // FRONT CONTROLLER -- > Dispatchers
+class HomePageView {
+    void show(){
+        System.out.println("Home page");
+    }
+}
 
+class InternalPageView {
+    void show(){
+        System.out.println("Internal page");
+    }
+}
+
+class Dispatcher {
+    private HomePageView hpv = new HomePageView();
+    private InternalPageView ipv = new InternalPageView();
+
+    void dispatch(String request) {
+        if(request.equalsIgnoreCase("HOME")){
+            hpv.show();
+        }
+
+        if(request.equalsIgnoreCase("INTERNAL")){
+            ipv.show();
+        }
+    }
+
+}
+
+
+class FrontController {
+    private Dispatcher dispatcher = new Dispatcher();
+
+    void dispatchRequest(String request) {
+        // Aquí podemos comprobar si el usuario está logueado
+        dispatcher.dispatch(request);
+    }
+
+
+}
